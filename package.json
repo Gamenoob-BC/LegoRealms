@@ -11,9 +11,12 @@
     "url": "git+https://github.com/Gamenoob-BC/LegoRealms.git"
   },
   "author": "TGNC",
-  "license": "MIT",
+  "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/Gamenoob-BC/LegoRealms/issues"
   },
-  "homepage": "https://github.com/Gamenoob-BC/LegoRealms#readme"
+  "homepage": "https://github.com/Gamenoob-BC/LegoRealms#readme",
+  "dependencies": {
+    "netlify-cli": "^16.2.0"
+  }
 }
