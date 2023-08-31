@@ -1,0 +1,19 @@
+{
+  "name": "legorealms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gamenoob-BC/LegoRealms.git"
+  },
+  "author": "TGNC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Gamenoob-BC/LegoRealms/issues"
+  },
+  "homepage": "https://github.com/Gamenoob-BC/LegoRealms#readme"
+}
