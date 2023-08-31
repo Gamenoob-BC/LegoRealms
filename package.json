@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Gamenoob-BC/LegoRealms#readme",
   "dependencies": {
-    "netlify-cli": "^16.2.0"
+    "commonjs": "^0.0.1",
+    "netlify-cli": "^16.2.0",
+    "three": "^0.156.0"
   }
 }
