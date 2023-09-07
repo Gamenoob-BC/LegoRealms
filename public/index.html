@@ -2,11 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your Game</title>
+  <title>LegoRealms</title>
 </head>
 <body>
+  <canvas id="game-canv"></canvas>
+  <div>
+    <span>
+      (C)The Game Noob Community
+    </span>
+  </div>
   <!-- Add your game canvas or UI elements here -->
   <script src="/socket.io/socket.io.js"></script>
-  <script src="client.js"></script>
+  <script src="client.js" canvas="game-canv"></script>
 </body>
 </html>
