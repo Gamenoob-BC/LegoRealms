@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@100;400;700&display=swap');
+
+*{
+    margin-top: 4px;
+    font-family: 'Poppins', 'Montserrat', Arial, sans-serif;
+    font-weight: 400;
+}
+#game-canv{
+    width: 100%;
+    height: 100%;
+}
+
+.container span{
+    font-weight: 100;
+}
+
+.container span:hover{
+    font-weight: 700
+}
