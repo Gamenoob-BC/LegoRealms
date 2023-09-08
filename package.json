@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "netlify login && netlify init",
+    "init-netl": "netlify login && netlify init",
     "serve": "cd server && nodemon server.js",
     "deploy": "netlify deploy"
   },
