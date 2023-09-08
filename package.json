@@ -6,7 +6,8 @@
   "scripts": {
     "init-netl": "netlify login && netlify init",
     "serve": "cd server && nodemon server.js",
-    "deploy": "netlify deploy"
+    "deploy": "netlify deploy",
+    "deploy-prod":"netlify deploy --prod"
   },
   "repository": {
     "type": "git",
