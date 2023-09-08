@@ -23,7 +23,6 @@
     "commonjs": "^0.0.1",
     "netlify-cli": "^16.2.0",
     "netlify-lambda": "^2.0.16",
-    "socketio": "^1.0.0",
-    "three": "^0.156.0"
+    "socketio": "^1.0.0"
   }
 }
