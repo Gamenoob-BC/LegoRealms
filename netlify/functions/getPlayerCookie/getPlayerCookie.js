@@ -4,32 +4,14 @@ const cookie = require('cookie')
 const COOKIE_MAX_AGE = 12_096e5
 
 const handler = async () => {
-  const myCookie = cookie.serialize('my_cookie', 'lolHi', {
+  const myCookie = cookie.serialize('PlayerCookie', 'playerData', {
     secure: true,
     httpOnly: true,
     path: '/',
     maxAge: COOKIE_MAX_AGE,
   })
 
-  const redirectUrl = 'https://google.com'
-  // Do redirects via html
-  const html = `
-  <html lang="en">
-    <head>
-      <meta charset="utf-8">
-    </head>
-    <body>
-      <noscript>
-        <meta http-equiv="refresh" content="0; url=${redirectUrl}" />
-      </noscript>
-    </body>
-    <script>
-      setTimeout(function(){
-        window.location.href = ${JSON.stringify(redirectUrl)}
-      }, 0)
-    </script>
-  </html>`
-
+ 
   return {
     statusCode: 200,
     headers: {
