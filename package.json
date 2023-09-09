@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "init-netl": "netlify login && netlify init",
-    "serve":"nodemon server.js",
+    "serve": "nodemon server.js",
     "deploy": "netlify deploy",
     "deploy-prod": "netlify deploy --prod"
   },
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Gamenoob-BC/LegoRealms#readme",
   "dependencies": {
+    "cookie": "^0.5.0",
     "express": "^4.18.2",
     "netlify-cli": "^16.2.0",
     "netlify-lambda": "^2.0.16",
