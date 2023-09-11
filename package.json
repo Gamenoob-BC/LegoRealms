@@ -7,7 +7,8 @@
     "init-netl": "netlify login && netlify init",
     "serve": "nodemon server.js",
     "deploy": "netlify deploy",
-    "deploy-prod": "netlify deploy --prod"
+    "deploy-prod": "netlify deploy --prod",
+    "start": "netlify dev"
   },
   "repository": {
     "type": "git",

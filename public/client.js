@@ -1,5 +1,6 @@
 const socket = io();
-
+const totalFrames=180;
+const mixer = THREE.AnimationMixer();
 socket.on('connect', () => {
   console.log('Connected to server');
 });
@@ -13,52 +14,85 @@ socket.on('disconnect', () => {
 // Create a scene, camera, and renderer
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({
+  canvas: document.querySelector("div.container canvas#game"),
+});
 renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
 
 // Create a loader for your OBJ file
-const loader = new THREE.OBJLoader();
+const mtlLoader = new MTLLoader()
+const objLoader = new THREE.OBJLoader();
+let terrainObjects=[];
+mtlLoader.load("misc/2x2_block.mtl", (unitMaterial)=> {
+  unitMaterial.preload();
+  objLoader.setMaterial(unitMaterial);
+  objLoader.load("misc/2x2_block.obj", (unit) => {
+
+    // Define the number of terrain units you want to generate
+    const numTerrainUnits = 10; // Adjust as needed
+  
+    // Define the range for random adjustments
+    const minOffsetX = -5;
+    const maxOffsetX = 5;
+    const minOffsetY = -1;
+    const maxOffsetY = 1;
+    const minOffsetZ = -5;
+    const maxOffsetZ = 5;
+  
+    // Clone and position the objUnit to create an infinite terrain
+    for (let i = 0; i < numTerrainUnits; i++) {
+      const terrain = objUnit.clone();
+      
+      // Generate random offsets for X, Y, and Z positions
+      const randomOffsetX = Math.random() * (maxOffsetX - minOffsetX) + minOffsetX;
+      const randomOffsetY = Math.random() * (maxOffsetY - minOffsetY) + minOffsetY;
+      const randomOffsetZ = Math.random() * (maxOffsetZ - minOffsetZ) + minOffsetZ;
+      
+      terrain.position.set(randomOffsetX, randomOffsetY, randomOffsetZ);
+      scene.add(terrain);
+      terrainObjects.push(terrain);
+    }
+  });  
+});
 
 // Load your animated OBJ file
 let obj;
-loader.load('misc/figurine.obj', (object) => {
-  obj = object;
+let plr = new THREE.Group();
+const parentGroup = new THREE.Group();
+scene.add(parentGroup);
+// Loop through your frames (adjust the frame count as needed)
+for (let frameNumber = 1; frameNumber <= totalFrames; frameNumber++) {
+  // Load the OBJ and MTL files for the current frame
+  const objLoader = new THREE.OBJLoader();
+  const mtlLoader = new THREE.MTLLoader();
 
-  // Add the loaded object to the scene
-  scene.add(obj);
+  // Load the MTL file (assuming it's named consistently with each frame)
+  mtlLoader.load(`misc/Figurine/Figurine${frameNumber}.mtl`, (materials) => {
+    materials.preload();
 
-  // Set the initial position, rotation, and scale if needed
-  obj.position.set(0, 0, 0);
-  obj.rotation.set(0, 0, 0);
-  obj.scale.set(1, 1, 1);
+    // Set up the OBJ loader with the loaded materials
+    objLoader.setMaterials(materials);
 
-  // Create an animation mixer for the loaded object
-  const mixer = new THREE.AnimationMixer(obj);
+    // Load the OBJ file for the current frame
+    objLoader.load(`misc/Figurine/Figurine${frameNumber}.obj`, (object) => {
+      // You can apply any transformations or adjustments to the object here
+      // Example: object.scale.set(0.1, 0.1, 0.1);
 
-  // Add your animation data (assuming you have an animation clip)
-  const animationIdle = THREE.AnimationClip.findByName(object.animations, 'idle');
-  const actionIdle = mixer.clipAction(animationIdle);
-  const animationWalk = THREE.AnimationClip.findByName(object.animations, 'walk');
-  const actionWalk = mixer.clipAction(animationWalk);
-  const animationJump = THREE.AnimationClip.findByName(object.animations, 'jump');
-  const actionJump = mixer.clipAction(animationJump);
-  const animationFall = THREE.AnimationClip.findByName(object.animations, 'fall');
-  const actionFall = mixer.clipAction(animationIdle);
-  const animationClimb = THREE.AnimationClip.findByName(object.animations, 'climb');
-  const actionClimb = mixer.clipAction(animationIdle);
-  const animationSwim = THREE.AnimationClip.findByName(object.animations, 'swim');
-  const actionSwim = mixer.clipAction(animationIdle);
+      // Add the loaded object to the parent group
+      parentGroup.add(object);
 
-  // Render the scene
-  const animate = () => {
-    requestAnimationFrame(animate);
-    mixer.update(1/30); // Adjust the time step as needed
-    renderer.render(scene, camera);
-  };
+      // Position each frame accordingly
+      object.position.set(frameNumber * frameSpacing, 0, 0); // Adjust spacing as needed
+    });
+  });
+}
 
-  animate();
-});
 
-// Set up camera position
-camera.position.z = 5;
+const animate = () => {
+  requestAnimationFrame(animate);
+  mixer.update(1/24); // Adjust the time step as needed
+  renderer.render(scene, camera);
+};
+
+animate();
+
